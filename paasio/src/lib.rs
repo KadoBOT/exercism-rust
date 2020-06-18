@@ -31,13 +31,10 @@ impl<R: Read> ReadStats<R> {
 impl<R: Read> Read for ReadStats<R> {
     fn read(&mut self, buf: &mut [u8]) -> Result<usize> {
         self.reads += 1;
-        match self.data.read(buf) {
-            Ok(x) => {
-                self.bytes += x;
-                Ok(x)
-            }
-            Err(why) => panic!("{:?}", why),
-        }
+        self.data.read(buf).map(|bytes| {
+            self.bytes += bytes;
+            bytes
+        })
     }
 }
 
@@ -72,13 +69,10 @@ impl<W: Write> WriteStats<W> {
 impl<W: Write> Write for WriteStats<W> {
     fn write(&mut self, buf: &[u8]) -> Result<usize> {
         self.writes += 1;
-        match self.data.write(buf) {
-            Ok(x) => {
-                self.bytes += x;
-                Ok(x)
-            }
-            Err(why) => panic!("{:?}", why),
-        }
+        self.data.write(buf).map(|bytes| {
+            self.bytes += bytes;
+            bytes
+        })
     }
 
     fn flush(&mut self) -> Result<()> {
