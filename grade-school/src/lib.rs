@@ -1,8 +1,8 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Default)]
 pub struct School {
-    students: HashMap<u32, HashSet<String>>,
+    students: BTreeMap<u32, BTreeSet<String>>,
 }
 
 impl School {
@@ -11,18 +11,12 @@ impl School {
     }
 
     pub fn add(&mut self, grade: u32, student: &str) {
-        let entry = self.students.entry(grade).or_insert_with(HashSet::new);
+        let entry = self.students.entry(grade).or_insert_with(BTreeSet::new);
         entry.insert(student.to_string());
     }
 
     pub fn grades(&self) -> Vec<u32> {
-        let mut result = self
-            .students
-            .iter()
-            .map(|(&grade, _)| grade)
-            .collect::<Vec<_>>();
-        result.sort();
-        result
+        self.students.keys().copied().collect::<Vec<_>>()
     }
 
     // If grade returned an `Option<&Vec<String>>`,
@@ -31,9 +25,7 @@ impl School {
     // the internal implementation is free to use whatever it chooses.
     pub fn grade(&self, grade: u32) -> Option<Vec<String>> {
         if let Some(s) = self.students.get(&grade) {
-            let mut result = s.iter().cloned().collect::<Vec<_>>();
-            result.sort();
-            return Some(result);
+            return Some(s.iter().cloned().collect::<Vec<_>>());
         }
 
         None
