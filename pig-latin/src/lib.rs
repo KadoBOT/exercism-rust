@@ -17,10 +17,10 @@ pub fn translate(input: &str) -> String {
 
             let consonant_qu = &word[1..=2] == "qu";
             if consonant_qu {
-                return format!("{}{}ay", &word[3..], &word[0..=2]);
+                return format!("{}{}ay", &word[3..], &word[..=2]);
             }
 
-            format!("{}{}ay", &word[1..], &word[0..1])
+            format!("{}{}ay", &word[1..], &word[..1])
         })
         .collect::<Vec<_>>()
         .join(" ")
