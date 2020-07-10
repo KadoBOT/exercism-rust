@@ -8,7 +8,7 @@ pub fn rotate(input: &str, key: i8) -> String {
     input
         .bytes()
         .map(|b: u8| match b {
-            b'a'..=b'z' => alphabet[(b - b'a') as usize],
+            b'a'..=b'z' => alphabet[b as usize],
             b'A'..=b'Z' => alphabet[(b - b'A') as usize].to_ascii_uppercase(),
             _ => b as char,
         })
