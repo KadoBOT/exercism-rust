@@ -52,10 +52,10 @@ impl Iterator for RailFence {
                 self.curr = x - 1;
                 Some(x)
             }
-            (x, Direction::Up) if x == 0 => {
+            (0, Direction::Up) => {
                 self.direction = Direction::Down;
-                self.curr = x + 1;
-                Some(x)
+                self.curr = 1;
+                Some(0)
             }
             (x, Direction::Down) => {
                 self.curr = x + 1;
