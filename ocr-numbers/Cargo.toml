@@ -1,0 +1,8 @@
+[package]
+edition = "2018"
+name = "ocr-numbers"
+version = "0.0.0"
+
+[dependencies]
+array_tool = "1.0.3"
+itertools = "0.9.0"
