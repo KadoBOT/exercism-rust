@@ -9,15 +9,7 @@ pub enum Comparison {
 }
 
 fn b_contains_a<T: PartialEq>(list_a: &[T], list_b: &[T]) -> bool {
-    if list_a.is_empty() {
-        return true;
-    }
-
-    if list_a.len() < list_b.len() {
-        return list_b.windows(list_a.len()).any(|b| b.eq(list_a));
-    }
-
-    false
+    list_a.is_empty() || list_b.windows(list_a.len()).any(|b| b.eq(list_a))
 }
 
 pub fn sublist<T: PartialEq>(first_list: &[T], second_list: &[T]) -> Comparison {
