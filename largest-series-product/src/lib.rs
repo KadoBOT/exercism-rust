@@ -8,7 +8,7 @@ fn get_product(string_digits: &str, span: usize) -> Result<u64, Error> {
     string_digits
         .as_bytes()
         .windows(span)
-        .try_fold(0, |prd_max: u64, bytes| {
+        .try_fold(0u64, |prd_max, bytes| {
             let prod = bytes.iter().try_fold(1, |acc, &b| {
                 (b as char)
                     .to_digit(10)
